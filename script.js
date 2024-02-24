@@ -29,22 +29,22 @@ function locomotive() {
     });
     ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
     ScrollTrigger.refresh();
-  }
-  locomotive();
+}
+locomotive();
   
   
-  const canvas = document.querySelector("canvas");
-  const context = canvas.getContext("2d");
+const canvas = document.querySelector("canvas");
+const context = canvas.getContext("2d");
   
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+  
+  
+window.addEventListener("resize", function () {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  
-  
-  window.addEventListener("resize", function () {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    render();
-  });
+  render();
+});
 
 function files(index) {
     var data = `
@@ -373,7 +373,7 @@ gsap.to(imageSeq, {
     scrub: 0.15,
     trigger: `#page>canvas`,
     start: `top top`,
-    end: `400% top`,
+    end: `400% bottom`,
     scroller: `#main`,
   },
   onUpdate: render,
@@ -410,11 +410,22 @@ function scaleImage(img, ctx) {
 
 
 ScrollTrigger.create({
-
     trigger: "#page>canvas",
     pin: true,
     scroller: `#main`,
     start: `top top`,
-    end: `400% top`,
+    end: `400% bottom`,
   });
 
+
+  document.addEventListener('DOMContentLoaded',() =>{
+    setTimeout(() => {
+      upword();
+      }, 10000);
+      function upword(){
+        document.querySelector('#main').style.height = 'auto';
+        gsap.to('.loader',{
+          y:'-100%',
+        })
+      }
+})
